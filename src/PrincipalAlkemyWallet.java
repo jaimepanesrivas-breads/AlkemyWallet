@@ -1,33 +1,90 @@
 import java.util.Scanner;
 
 import cl.alkemy.business.AlkemyCuenta;
+import cl.alkemy.business.Cuenta;
 import cl.alkemy.utilitarios.Menu;
 import cl.alkemy.utilitarios.NumeroCuentaRandom;
 import cl.alkemy.utilitarios.servicios.ConversorMoneda;
 import cl.alkemy.utilitarios.servicios.ConversorMonedaImpl;
 import cl.alkemy.utilitarios.servicios.Moneda;
 
+
+/**
+ * 
+ * Clase PrincipalAlkemyWallet
+ * 
+ * <p>
+ * Encargada de mostrar el menú principal del sistema
+ * y gestionar interacciones básicas con el usuario por consola.
+ * </p>
+ * 
+ * <p>
+ * Centraliza la presentación de opciones y utilidades
+ * relacionadas con la navegación del programa.
+ * </p>
+ * 
+ * @author Jaime Francisco Panes Rivas
+ * @version 1.0
+ * @since 2026-01
+ */
+
+
 public class PrincipalAlkemyWallet {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		/**
-		 * Declaracion de Variables
-		 */
-
+		// Declaracion de variables y constantes
+		
+		//Constantes para generar numero de cuenta random
 		int MAX = 1000000;
 		int MIN = 1;
 		
+		// Variables
 		
+		/**
+		 * Objeto Scanner para lectura de datos por consola.
+		 */
 		Scanner leer = new Scanner(System.in);
+		
+		/**
+		 * Opción seleccionada en el menú.
+		 */
 		int opcion=-1;
-		AlkemyCuenta cuenta = null;
+		
+		/**
+		 * Objeto AlkemyCuenta que representa la cuenta del usuario.
+		 */
+		//AlkemyCuenta cuenta = null; //Cambiar a interfaz Cuenta
+		Cuenta cuenta = null;
+		/** 
+		 * Variables para capturar datos de la cuenta.
+		 */
 		int numeroCuenta;
+		
+		/**
+		 * Nombre del titular de la cuenta.
+		 */
 		String nombreTitular;
+		
+		/** 
+		 * Saldo actual de la cuenta.
+		 */
 		double saldoActual;
+		
+		/**
+		 * Monto a abonar en la cuenta.
+		 */
 		double montoAbono;
+		
+		/**
+		 * Monto a girar de la cuenta.
+		 */
 		double montoGiro;
+		
+		/**
+		 * Tipo de moneda de la cuenta.
+		 */
 		String tipoMoneda;
 		
 		
@@ -38,6 +95,7 @@ public class PrincipalAlkemyWallet {
 		
 		
 		while (opcion != 0) {
+			
 			menu.mostrarMenu();
 			opcion = leer.nextInt();
 			
@@ -86,6 +144,7 @@ public class PrincipalAlkemyWallet {
 							} else {
 								//Creacion de la cuenta
 								cuenta = new AlkemyCuenta(numeroCuenta, nombreTitular, saldoActual, Moneda.USD);
+								
 								
 							}
 							
@@ -178,8 +237,8 @@ public class PrincipalAlkemyWallet {
 								ConversorMoneda conversor = new ConversorMonedaImpl();
 								double nuevoSaldo = conversor.convertir(cuenta.getSaldoActual(), Moneda.CLP, Moneda.USD);
 								System.out.println(nuevoSaldo);
-								cuenta.setSaldoActual(nuevoSaldo);
-								cuenta.setTipoMoneda(Moneda.USD);
+								((AlkemyCuenta) cuenta).setSaldoActual(nuevoSaldo);
+								((AlkemyCuenta) cuenta).setTipoMoneda(Moneda.USD);
 								
 								leer.nextLine(); //Limpiar buffer de lectura
 								menu.esperarEnter(leer);
@@ -193,8 +252,8 @@ public class PrincipalAlkemyWallet {
 								ConversorMoneda conversor = new ConversorMonedaImpl();
 								double nuevoSaldo = conversor.convertir(cuenta.getSaldoActual(), Moneda.USD, Moneda.CLP);
 								System.out.println(nuevoSaldo);
-								cuenta.setSaldoActual(nuevoSaldo);
-								cuenta.setTipoMoneda(Moneda.CLP);
+								((AlkemyCuenta) cuenta).setSaldoActual(nuevoSaldo);
+								((AlkemyCuenta) cuenta).setTipoMoneda(Moneda.CLP);
 								
 								leer.nextLine(); //Limpiar buffer de lectura
 								menu.esperarEnter(leer);

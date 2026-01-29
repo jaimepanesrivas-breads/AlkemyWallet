@@ -6,10 +6,11 @@ import java.util.Scanner;
 /**
  * 
  * Clase Menu
- * -----------
  * 
- * Clase encargada de mostrar el menú principal del sistema
+ * <p>
+ * Encargada de mostrar el menú principal del sistema
  * y gestionar interacciones básicas con el usuario por consola.
+ * </p>
  * 
  * <p>
  * Centraliza la presentación de opciones y utilidades
@@ -18,57 +19,62 @@ import java.util.Scanner;
  * 
  * @author Jaime Francisco Panes Rivas
  * @version 1.0
+ * @since 2026-01
  */
 
 public class Menu {
 	
 	
+	// Atributos
+	
 	/**
-	 * Atributos
+	 *  Indica  la opcion seleccionada o el estado del menú.
 	 */
+	private int opcion;
 
-	private int opcion; // indica atributo de opcion del menu.
+	
+	// Constructors
+	
+	
+	/**
+	 * Constructor por defecto
+	 * 
+	 * <p> Incializador de la clase Menu sin parámetros.
+	 * Por defecto no se despliega el menú.
+	 * </p>
+	 * 
 
-	
-	
-	/**
-	 * Constructor
-	 * @return
+	 * @since 2026-01
 	 */
 	
-	/**
-	 * Constructors
-	 * ------------ 
-	 * 
-	 * Inicializa el objeto con los parámetros
-	 * 
-	 *  @param opcion  atributo que permite o no el despliegue del menú. 
-	 *  
-	 * Inicializador parametros por defecto, no se despliega el menú.
-	 * 
-	 * 
-	 * @version 1.0
-	 *
-	 */
-	// constructos datos por defecto
 	public Menu() {
 		this.opcion = -1; // por defecto no despliega menú
 	}
 	
-	// Constructor datos parámetros
+	
+	/**
+	 * Constructor con parámetros
+	 * 
+	 * <p> Incializador de la clase Menu con parámetros.
+	 * </p>
+	 * 
+	 * @param opcion valor inicial de la opción del menú.
+	 * 
+	 *
+	 */
+
 	public Menu(int opcion) {
 		this.opcion = opcion;
 	}
 
-	/**
-	 * getter and setter
-	 * -----------------
-	 * @return
-	 */
+	
+	// Getters and Setters
+	
+	
 	
 	/**
-     * Obtiene la opcion del despliegue del menú
-     * 
+     * Obtiene la opción actual del menú
+     *  
      * @return opcipn valor de si se despliega o no el menú.
      */
 	public int getOpcion() {
@@ -76,19 +82,20 @@ public class Menu {
 	}
 
 	/**
-     * Establece el valor de atributo opcion para el despliegue del menú.
+     * Establece opción del menú.
      * 
-     * @param opcion
+     * @param opcion nuevo valor de la opción del menú.
      */
 	public void setOpcion(int opcion) {
 		this.opcion = opcion;
 	}
 	
 	
-	/**
-	 * metodos custom
-	 */
+	// Métodos
 	
+	/**
+     * Muestra el menú principal por consola.
+     */
 	
 	public void mostrarMenu () {
 		
@@ -113,6 +120,10 @@ public class Menu {
 		}
 	}
 	
+	
+	/**
+     * Pausa la ejecución hasta que el usuario presione ENTER.
+     */
 	public void esperarEnter(Scanner scanner) {
         System.out.println("\nPresione ENTER para continuar...");
         scanner.nextLine();

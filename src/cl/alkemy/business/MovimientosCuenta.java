@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 import cl.alkemy.utilitarios.servicios.Moneda;
 
-/*
+/**
  * Clase MovimientosCuenta
- * -----------------------
  * 
- * Representa los movimientos que pueden haber en una cuenta creada.
+ * <p>Representa los movimientos que pueden haber en una cuenta creada.
  * Los moviminetos pueden ser :
  * Crear Cuenta ==> CREA
  * Abonar a la Cuenta ==> ABONO
  * Girar desde la cuenta ==> GIRO
- * 
+ * </p>
+ *  <p>
  * Esta clase se utiliza para mantener un historial de los movimientos de la cuenta.
  * 
  * Cada movimiento registra:
@@ -23,42 +23,69 @@ import cl.alkemy.utilitarios.servicios.Moneda;
  * - Moneda de la cuenta
  * - Saldo antes del movimiento en la cuenta
  * 
- * @autor Jaime Francisco Panes Rivas.
- * @version 1.0
+ * </p>
  * 
- * Se agrega constructor vacio
- * @autor Jaime Francisco Panes Rivas.
+ * @author Jaime Francisco Panes Rivas.
+ * @version 1.0
+ * @since 2026-01
+ * 
+ * <p>Se agrega constructor vacio
+ * </p>
+ * @author Jaime Francisco Panes Rivas.
  * @version 1.1
+ * @since 2026-01
  * 
  */
+
 public class MovimientosCuenta {
 
 	
-	/**
-	 * Atributos de la clase MovimientosCuenta
-	 */
+	//Atributos
 	
-	private String tipo;            // tipo de movimiento CREA o ABONO o GIRO
-	private double monto;           // monto asociado al tipo de movimiento
-	private double saldoResultante; // saldo de la cuenta previo al movimiento
-	private Moneda tipoMoneda;      // moneda base que usa la cuenta
-	private LocalDateTime fecha;    // fecha del movimiento
+	/**
+	 * Indica tipo tipo de movimiento CREA o ABONO o GIRO
+	 */
+	private String tipo;
+	
+	/**
+	 * Representa el monto del movimiento
+	 */
+	private double monto;           
+	
+	/**
+	 * Representa el saldo de la cuenta previo al movimiento
+	 */
+	private double saldoResultante;
+	
+	/**
+	 * Representa el tipo de moneda del movimiento
+	 */
+	private Moneda tipoMoneda;
+	
+	/**
+	 * Representa la fecha y hora del movimiento
+	 */
+	private LocalDateTime fecha;
 
+	
+	//Constructors
+	
 	/**
-	 * Constructors
+	 * Constructor MovimientosCuenta sin parámetros
 	 * 
-	 * Inicializa el objeto con los parámetros.
+	 * <p>
+	 * Inicializa el objeto MovimientosCuenta sin parámetros, con datos
+	 * por defecto.
+	 * </P>
 	 * 
-	 * @version 1.0
 	 * 
-	 * Se agrega inicializar objeto con valores por defecto,
+	 * <p>Se agrega inicializar objeto con valores por defecto,
 	 * se recomienda inicializar con parámetros
+	 * </p>
 	 * 
-	 * @version 1.1
+	 * 
 	 */
 	
-	
-	// Inicializador con valores por defecto
 	public MovimientosCuenta() {
 		this.tipo = "";
 		this.monto = 0;
@@ -67,15 +94,22 @@ public class MovimientosCuenta {
 		this.fecha = null;
 	}
 	
-	/** 
-	 * Inicializador con parametros (recomendado)
+	
+	/**
+	 * Constructor MovimientosCuenta con parámetros
+	 * 
+	 * <p>
+	 * Inicializa el objeto MovimientosCuenta con parámetros, dados por el usuario.
+	 * </P>
 	 * 
 	 * @param tipo            Tipo de movimiento (CREA, ABONO, GIRO)
 	 * @param monto           Monto involucrado en el movimiento
 	 * @param saldoResultante Saldo de la cuenta luego del movimiento
 	 * @param tipoMoneda      Tipo de moneda del movimiento
 	 * 
+	 * 
 	 */
+		
 	public MovimientosCuenta(String tipo, double monto, double saldoResultante,Moneda tipoMoneda) {
 		this.tipo = tipo;
 		this.monto = monto;
@@ -84,16 +118,14 @@ public class MovimientosCuenta {
 		this.fecha = LocalDateTime.now();
 	}
 	
-	/**
-	 * Getters and Setters
-	 * 
-	 */
 	
 	
+	// Getters and Setters
+	
 	/**
-     * Obtiene el tipo de movimiento.
+     * Obtiene el tipo de movimiento actual a realizar.
      * 
-     * @return tipo de movimiento
+     * @return valor del tipo de movimiento
      */
 	public String getTipo() {
 		return tipo;
@@ -111,9 +143,9 @@ public class MovimientosCuenta {
 	
 	
 	/**
-     * Obtiene el monto del movimiento.
+     * Obtiene el monto asociado al movimiento.
      * 
-     * @return monto del movimiento
+     * @return valor monto del movimiento
      */
 	public double getMonto() {
 		return monto;
@@ -121,9 +153,9 @@ public class MovimientosCuenta {
 	
 	
 	/**
-     * Establece el monto del movimiento.
+     * Establece el monto asociado al movimiento.
      * 
-     * @param monto monto del movimiento
+     * @param monto nuevo monto del movimiento
      */
 	public void setMonto(double monto) {
 		this.monto = monto;
@@ -133,7 +165,7 @@ public class MovimientosCuenta {
 	/**
      * Obtiene el tipo de moneda del movimiento.
      * 
-     * @return tipo de moneda
+     * @return valor del tipo de moneda
      */
 	public Moneda getTipoMoneda() {
 		return tipoMoneda;
@@ -143,7 +175,7 @@ public class MovimientosCuenta {
 	/**
     * Establece el tipo de moneda del movimiento.
     * 
-    * @param tipoMoneda tipo de moneda
+    * @param tipoMoneda nuevo valor de tipo de moneda
     */
 	public void setTipoMoneda(Moneda tipoMoneda) {
 		this.tipoMoneda = tipoMoneda;
@@ -165,7 +197,7 @@ public class MovimientosCuenta {
 	/**
      * Establece el saldo resultante del movimiento.
      * 
-     * @param saldoResultante saldo luego del movimiento
+     * @param saldoResultante nuevo valor de saldo luego del movimiento
      */
 	public void setSaldoResultante(double saldoResultante) {
 		this.saldoResultante = saldoResultante;
@@ -188,7 +220,7 @@ public class MovimientosCuenta {
      * Establece la fecha del movimiento.
      * Normalmente no se modifica manualmente.
      * 
-     * @param fecha fecha del movimiento
+     * @param fecha nuevo valor de fecha del movimiento
      */
 	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
