@@ -26,6 +26,15 @@ import cl.alkemy.utilitarios.servicios.Moneda;
  * @author Jaime Francisco Panes Rivas
  * @version 1.0
  * @since 2026-01
+ * 
+ * <p>
+ * Modificamos para que se pueda usar AlkemyCuenta como superclase y Cuenta como Interfaz.
+ * Aidiconalmente se castea a AlkemyCuenta para usar setters 
+ * </p>
+ * 
+ * @author Jaime Francisco Panes Rivas
+ * @version 1.0
+ * @since 2026-01
  */
 
 
@@ -237,8 +246,8 @@ public class PrincipalAlkemyWallet {
 								ConversorMoneda conversor = new ConversorMonedaImpl();
 								double nuevoSaldo = conversor.convertir(cuenta.getSaldoActual(), Moneda.CLP, Moneda.USD);
 								System.out.println(nuevoSaldo);
-								((AlkemyCuenta) cuenta).setSaldoActual(nuevoSaldo);
-								((AlkemyCuenta) cuenta).setTipoMoneda(Moneda.USD);
+								((AlkemyCuenta) cuenta).setSaldoActual(nuevoSaldo);// casteamos a AlkemyCuenta para usar el metodo setSaldoActual
+								((AlkemyCuenta) cuenta).setTipoMoneda(Moneda.USD);// casteamos a AlkemyCuenta para usar el metodo setSaldoActual
 								
 								leer.nextLine(); //Limpiar buffer de lectura
 								menu.esperarEnter(leer);
@@ -252,8 +261,8 @@ public class PrincipalAlkemyWallet {
 								ConversorMoneda conversor = new ConversorMonedaImpl();
 								double nuevoSaldo = conversor.convertir(cuenta.getSaldoActual(), Moneda.USD, Moneda.CLP);
 								System.out.println(nuevoSaldo);
-								((AlkemyCuenta) cuenta).setSaldoActual(nuevoSaldo);
-								((AlkemyCuenta) cuenta).setTipoMoneda(Moneda.CLP);
+								((AlkemyCuenta) cuenta).setSaldoActual(nuevoSaldo);// casteamos a AlkemyCuenta para usar el metodo setSaldoActual
+								((AlkemyCuenta) cuenta).setTipoMoneda(Moneda.CLP); // casteamos a AlkemyCuenta para usar el metodo setTipoMoneda
 								
 								leer.nextLine(); //Limpiar buffer de lectura
 								menu.esperarEnter(leer);

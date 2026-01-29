@@ -15,8 +15,7 @@ public interface Cuenta {
 	
 	void imprimir();
 	void mostrarMovimientos();
-	//void setTipoMoneda(Moneda moneda);
-	//void setSaldoActual(double nuevoSaldo);
+	
 	
 	
 	
