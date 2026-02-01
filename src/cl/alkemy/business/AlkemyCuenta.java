@@ -2,6 +2,7 @@ package cl.alkemy.business;
 
 import java.util.ArrayList;
 
+import cl.alkemy.utilitarios.MoneyUtils;
 import cl.alkemy.utilitarios.servicios.Moneda;
 
 
@@ -21,12 +22,21 @@ import cl.alkemy.utilitarios.servicios.Moneda;
  * 
  * @author Jaime Francisco Panes Rivas
  * @version 1.0
- * @since 2024-06
+ * @since 2026-01
+ * 
+ * <p>
+ * Se agrega metodo de mostrarMovimientos para visualizar los movimientos asociados al cambio de moneda de la cuenta.
+ * </p>
+ * 
+ * @author Jaime Francisco Panes Rivas
+ * @version 1.0
+ * @since 2026-01
  * 
  */
 
 
 public class AlkemyCuenta implements Cuenta {
+	
 	// Atributos
 	
 	
@@ -242,29 +252,52 @@ public class AlkemyCuenta implements Cuenta {
 		} else if(montoGiro > this.saldoActual) {
 			System.out.println("\nHubo problemas en su giro. El saldo es insuficiente para realizar el giro, su saldo actual es de $ " + this.saldoActual);
 		} else {	
-			this.movimientos.add(new MovimientosCuenta("GIRO",montoGiro,saldoActual,tipoMoneda));//Genera un nuevo movimiento de tipo GIRO
+			this.movimientos.add(new MovimientosCuenta("GIRO",MoneyUtils.normalizar(montoGiro, tipoMoneda),saldoActual,tipoMoneda));//Genera un nuevo movimiento de tipo GIRO
 			this.saldoActual -= montoGiro; 
 			System.out.println("\nGiro realizado exitosamente");
-			System.out.println("\nEstimados " + this.nombreTitular + " se ha realizado un giro de $ " + montoGiro + " en su cuenta N° " + this.numeroCuenta + ".\nSu nuesvo saldo es de $" + this.saldoActual);
+			System.out.println("\nEstimados " + this.nombreTitular + " de moneda " + this.tipoMoneda + " se ha realizado un giro de $ " + MoneyUtils.formatear(montoGiro, tipoMoneda) + " en su cuenta N° " + this.numeroCuenta + ".\nSu nuesvo saldo es de $" + MoneyUtils.formatear(this.saldoActual,tipoMoneda) + this.getTipoMoneda() + " " + this.tipoMoneda);
 			
 		}
 		
 	}
 	
+	
 	/**
-	 * Imprime la información de la cuenta por consola.
+	 * Agrega un movimiento de cambio de moneda a la lista de movimientos
+	 * y actualiza el tipo de moneda de la cuenta.
+	 * 
+	 * @param nuevaMoneda Nuevo tipo de moneda para la cuenta.
+	 */
+	public void cambiarMonedaMovimiento(Moneda nuevaMoneda) {
+		this.tipoMoneda = nuevaMoneda;
+		System.out.println("\nEl tipo de moneda de la cuenta ha sido cambiado a: " + this.tipoMoneda);
+		this.movimientos.add(new MovimientosCuenta("CAMBIO MONEDA",	0,saldoActual,tipoMoneda));
+	}
+	
+	/**
+	 * Imprime los detalles de la cuenta por consola.
+	 * 
+	 * 
 	 */
 	public void imprimir () {
 		System.out.println("\nImpresión Cliente");
 		System.out.println("Número Cuenta  : " + this.numeroCuenta);
 		System.out.println("Nombre Titular : " + this.nombreTitular);
-		System.out.println("Saldo Cuenta   : $" + this.saldoActual);
+		if (this.tipoMoneda== Moneda.CLP) {
+			System.out.println("Saldo Cuenta   : $" + MoneyUtils.formatear(this.saldoActual, Moneda.CLP));
+		} else if (this.tipoMoneda== Moneda.USD) {
+			System.out.println("Saldo Cuenta   : $" + MoneyUtils.formatear(this.saldoActual, Moneda.USD));
+		} else if (this.tipoMoneda== Moneda.EURO) {
+			System.out.println("Saldo Cuenta   : $" + MoneyUtils.formatear(this.saldoActual, Moneda.EURO));
+		}
+		
 		System.out.println("Moneda         : " + this.getTipoMoneda());
 		
 	}
 	
 	/**
 	 * Muestra el historial de movimientos de la cuenta por consola.
+	 * 
 	 */
 	public void mostrarMovimientos() {
 		System.out.println("\n--- HISTORIAL DE MOVIMIENTOS ---");
@@ -274,7 +307,7 @@ public class AlkemyCuenta implements Cuenta {
 	        System.out.println(
 	            "FECHA MOVIMIENTO :" + m.getFecha() + " | " +
 	            "TIPO MOVIMIENTO :" + m.getTipo() + " | " +
-	            "MONTO MOVIMIENTO :" + m.getMonto() + " | " +
+	            "MONTO MOVIMIENTO :" + MoneyUtils.formatear(m.getMonto(), m.getTipoMoneda()) + " | " +
 	            "TIPO MONEDA CUENTA :" + m.getTipoMoneda() + " | " +
 	            "SALDO PREVIO MOVIMIENTO :" + m.getSaldoResultante() 
 	        );

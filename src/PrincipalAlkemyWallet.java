@@ -3,11 +3,12 @@ import java.util.Scanner;
 import cl.alkemy.business.AlkemyCuenta;
 import cl.alkemy.business.Cuenta;
 import cl.alkemy.utilitarios.Menu;
+import cl.alkemy.utilitarios.MoneyUtils;
 import cl.alkemy.utilitarios.NumeroCuentaRandom;
 import cl.alkemy.utilitarios.servicios.ConversorMoneda;
 import cl.alkemy.utilitarios.servicios.ConversorMonedaImpl;
 import cl.alkemy.utilitarios.servicios.Moneda;
-
+import cl.alkemy.utilitarios.servicios.validaciones.*;
 
 /**
  * 
@@ -28,13 +29,25 @@ import cl.alkemy.utilitarios.servicios.Moneda;
  * @since 2026-01
  * 
  * <p>
- * Modificamos para que se pueda usar AlkemyCuenta como superclase y Cuenta como Interfaz.
+ * Modificamos para que se pueda usar AlkemyCuenta como superclase y cuenta como Interfaz.
  * Aidiconalmente se castea a AlkemyCuenta para usar setters 
  * </p>
  * 
  * @author Jaime Francisco Panes Rivas
- * @version 1.0
+ * @version 1.1
  * @since 2026-01
+ * 
+ * <p>
+ * Modificamos para poder validar que los cammpos de ingreso de datos cumplan con su utilidad.
+ *  - ejemplo campo saldo debe ser número.
+ *  - ejemplo campo Nombre Titular debe no ser vacio.  
+ * </p>
+ * 
+ * @author Jaime Francisco Panes Rivas
+ * @version 1.2
+ * @since 2026-01
+ * 
+ * 
  */
 
 
@@ -59,13 +72,14 @@ public class PrincipalAlkemyWallet {
 		/**
 		 * Opción seleccionada en el menú.
 		 */
-		int opcion=-1;
+		int opcion;;
 		
 		/**
 		 * Objeto AlkemyCuenta que representa la cuenta del usuario.
 		 */
-		//AlkemyCuenta cuenta = null; //Cambiar a interfaz Cuenta
+		//AlkemyCuenta cuenta = null; 
 		Cuenta cuenta = null;
+		
 		/** 
 		 * Variables para capturar datos de la cuenta.
 		 */
@@ -101,23 +115,40 @@ public class PrincipalAlkemyWallet {
 		System.out.println("");
 		
 		Menu menu = new Menu(2);//Constructor con valor 2		
+		opcion = menu.getOpcion();
 		
 		
+		
+		// Bucle principal del menú
 		while (opcion != 0) {
 			
+			// Mostrar el menú
 			menu.mostrarMenu();
+			
+			while (!leer.hasNextInt()) {
+				// descarta la entrada inválida
+			    leer.nextLine(); 
+			    // Mostrar el menú
+				menu.limpiarConsola();
+				System.out.println("Opción inválida. Ingrese un número del 0 al 6.");
+			    menu.mostrarMenu();
+			}
 			opcion = leer.nextInt();
 			
-			switch (opcion) {
 			
+			
+			// Procesar la opción seleccionada
+			switch (opcion) {
+				// Salir
 				case 0: {
 					System.out.println("\nSaliendo del sistema.....");
 					break;
 	
 				}
-				
+				// Crear Cuenta
+				// el número de cuenta se genera automáticamente, los demas datos se piden al usuario
 				case 1:{
-					
+					// Verificar si ya existe una cuenta
 					if (cuenta == null) {
 						System.out.print("\nFavor ingresar los datos que se solicitarán para crear la cuenta");
 						System.out.println();
@@ -133,6 +164,15 @@ public class PrincipalAlkemyWallet {
 						System.out.print("\nIngrese Nombre Titular                : ");
 						nombreTitular = leer.nextLine();
 						
+						// Validar nombre titular no este vacio ni nulo
+						ValidadorDatos validaNombre = ValidaFactory.obtenerValidador(TiposDeValidacion.STRING);
+						
+						while (!validaNombre.validar(nombreTitular)) {
+							System.out.print("\nNombre inválido. Ingrese Nombre Titular                : ");
+							nombreTitular = leer.nextLine();
+						}
+						
+						
 						//System.out.print("\nTeléfono de contacto                : ");
 						//telefonoContacto = leer.nextline();
 						
@@ -140,21 +180,45 @@ public class PrincipalAlkemyWallet {
 						//correoContacto = leer.nextline();
 						
 						System.out.print("\nIngrese Saldo cuenta                  : ");
-						saldoActual = leer.nextDouble();
+						String saldoInput = leer.next();
 						
-						System.out.print("\nIngrese Tipo de Moneda de la Cuenta  (use CLP para peso Chileno y USD para Dolar Americano) : ");
-						tipoMoneda = leer.next();
+						// Validar saldo sea un numero
+						ValidadorDatos validador = ValidaFactory.obtenerValidador(TiposDeValidacion.NUMERICO);
+						saldoInput = saldoInput.trim();
+						if (validador.validar(saldoInput)) {
+								saldoActual = Double.parseDouble(saldoInput.replace(",", "."));
+							} else {
+								saldoActual = -1; // Asignar un valor inválido para entrar al bucle de validación
+							}
+																
+						// Validar saldo sea un numero positivo
 						
-						if (tipoMoneda.equalsIgnoreCase(Moneda.CLP.name()) || tipoMoneda.equalsIgnoreCase(Moneda.USD.name())) {
-							
+						ValidadorDatos validaSaldo = ValidaFactory.obtenerValidador(TiposDeValidacion.NUMERICO);
+						//ValidadorDatos validaSaldo = new ValidaFactory().obtenerValidador(TiposDeValidacion.NUMERICO);
+						while (!validaSaldo.validar(String.valueOf(saldoActual)) || saldoActual < 0) {
+							System.out.print("\nMonto ingresado para el campo Saldo es inválido.");
+							System.out.print(" Saldo cuenta                  : ");
+							saldoActual = leer.nextDouble();
+						}				
+						
+						System.out.print("\nIngrese Tipo de Moneda de la Cuenta  (use 'CLP' para peso Chileno, 'USD' para Dolar Americano y 'EURO' para moneda Europea) : ");
+						tipoMoneda = leer.next().toUpperCase();
+						// Validar tipo de moneda
+						if (tipoMoneda.equalsIgnoreCase(Moneda.CLP.name()) || tipoMoneda.equalsIgnoreCase(Moneda.EURO.name()) || tipoMoneda.equalsIgnoreCase(Moneda.USD.name())) {
+							// Crear la cuenta según el tipo de moneda
 							if (tipoMoneda.equalsIgnoreCase(Moneda.CLP.name())) {
 								//Creacion de la cuenta
+								saldoActual = MoneyUtils.normalizar(saldoActual, Moneda.CLP);
 								cuenta = new AlkemyCuenta(numeroCuenta, nombreTitular, saldoActual, Moneda.CLP);
+							} else  if (tipoMoneda.equalsIgnoreCase(Moneda.USD.name())) {
+								//Creacion de la cuenta
+								saldoActual = MoneyUtils.normalizar(saldoActual, Moneda.USD);
+								cuenta = new AlkemyCuenta(numeroCuenta, nombreTitular, saldoActual, Moneda.USD);								
+								
 							} else {
 								//Creacion de la cuenta
-								cuenta = new AlkemyCuenta(numeroCuenta, nombreTitular, saldoActual, Moneda.USD);
-								
-								
+								saldoActual = MoneyUtils.normalizar(saldoActual, Moneda.EURO);
+								cuenta = new AlkemyCuenta(numeroCuenta, nombreTitular, saldoActual, Moneda.EURO);
 							}
 							
 						} else {
@@ -167,19 +231,19 @@ public class PrincipalAlkemyWallet {
 						cuenta.imprimir();
 						leer.nextLine(); //Limpiar buffer de lectura
 						menu.esperarEnter(leer);
-						break;
+						break; // Salir del case 1
 					} else {
 						System.out.print("\nEstimado " + cuenta.getNombreTitular() + " Ud. ya tiene la cuenta N° " + cuenta.getNumeroCuenta() + " activa. No puede crear otra.");
 						leer.nextLine(); //Limpiar buffer de lectura
 						menu.esperarEnter(leer);
-						continue;
+						continue; // Volver al menú principal
 					}
 					
 				}
-				
+				// Consultar Saldo
 				case 2:{
-					if (cuenta != null) {
-						System.out.println("\nEl saldo en su cuenta N° " + cuenta.getNumeroCuenta() + " es de $" + cuenta.getSaldoActual() + " " + cuenta.getTipoMoneda());
+					if (cuenta != null) {// Verificar si la cuenta existe
+						System.out.println("\nEl saldo en su cuenta N° " + cuenta.getNumeroCuenta() + " es de $" + MoneyUtils.formatear(cuenta.getSaldoActual(), cuenta.getTipoMoneda())    + " " + cuenta.getTipoMoneda());
 						leer.nextLine(); //Limpiar buffer de lectura
 						menu.esperarEnter(leer);
 						break;
@@ -191,12 +255,33 @@ public class PrincipalAlkemyWallet {
 					}
 					
 				}
-				
+				// Abonar
 				case 3:{
+					// Varificar si la cuenta existe
 					if (cuenta != null) {
-						System.out.print("\nIngrese el mondo a abonar : $");
-						montoAbono = leer.nextDouble();
-						cuenta.depositar(montoAbono);
+						
+						ValidadorDatos validador = ValidaFactory.obtenerValidador(TiposDeValidacion.NUMERICO);
+						
+						montoAbono = -1; // Inicializar con valor inválido
+						
+						// Validar montoAbono sea un número positivo, mientras no sea así se repite el ingreso.
+						do {
+							
+							System.out.print("\nIngrese el mondo a abonar : $");
+							String montoAbonoInput = leer.next();
+						
+							// Validar montoAbonoInput sea un numero positivo
+							
+							if (validador.validar(montoAbonoInput)) {
+								montoAbono = Double.parseDouble(montoAbonoInput.replace(",", "."));
+								cuenta.depositar(montoAbono);
+							} else {
+								System.out.print("\nMonto ingresado para el campo Abono es inválido.");
+							}
+						
+						} while (!validador.validar(String.valueOf(montoAbono)) || montoAbono < 0);
+																		
+						
 						leer.nextLine(); //Limpiar buffer de lectura
 						menu.esperarEnter(leer);
 						break;
@@ -209,13 +294,32 @@ public class PrincipalAlkemyWallet {
 						
 					}
 					
-					
 				}
 				
+				// Girar
 				case 4:{
+					// Verificar si la cuenta existe
 					if (cuenta != null) {
-						System.out.print("\nIngrese el mondo a girar : $");
-						montoGiro = leer.nextDouble();
+						
+						ValidadorDatos validador = ValidaFactory.obtenerValidador(TiposDeValidacion.NUMERICO);
+						
+						montoGiro = -1; // Inicializar con valor inválido
+						
+						do {
+							System.out.print("\nIngrese el mondo a girar : $");
+							String montoGiroInput = leer.next();
+							
+							// Validar montoGiroInput sea un numero positivo
+							if (validador.validar(montoGiroInput)) {
+								montoGiro = Double.parseDouble(montoGiroInput.replace(",", "."));
+							} else {
+								System.out.print("\nMonto ingresado para el campo Giro es inválido.");
+							}
+							
+						} while (!validador.validar(String.valueOf(montoGiro)) || montoGiro < 0);
+						
+						
+						// Agrega movimiento de giro y actualiza saldo
 						cuenta.giro(montoGiro);
 						leer.nextLine(); //Limpiar buffer de lectura
 						menu.esperarEnter(leer);
@@ -229,46 +333,58 @@ public class PrincipalAlkemyWallet {
 						
 					}
 					
-					
 				}
 				
+				
+				// Convertir Moneda
 				case 5:{
 					if (cuenta != null) {
-						System.out.println("hacer conversion de moneda");
+						System.out.println("Recuerde que sólo es posible convertir entre CLP y USD o entre CLP y EURO, y viceversa.");
 						System.out.println("\nSu Cuenta N° " + cuenta.getNumeroCuenta() + " esta en " + cuenta.getTipoMoneda());
 						
-						if(cuenta.getTipoMoneda() == Moneda.CLP) {
+						//Listar monedas disponibles
+						System.out.println("\nSeleccione Monedas disponibles para conversión:");
+						for (Moneda moneda : Moneda.values()) {
+							if (moneda != cuenta.getTipoMoneda())
+								System.out.println("- " + moneda);
+						}
+						
+						leer.nextLine(); //Limpiar buffer de lectura
+						System.out.print("\n Por favor ingrese la moneda a la que desea convertir su cuenta: ");
+						String monedaNueva = leer.nextLine();
+						
+						// Validar moneda ingresada
+						// recorrer el enum Moneda para verificar si existe
+					
+						try {
+						    Moneda moneda = Moneda.valueOf(monedaNueva.trim().toUpperCase());
+
+						    System.out.println("\nMoneda seleccionada para conversión es: " + moneda);
+						    System.out.print("\n¿Quiere modificar si cuenta de " + cuenta.getTipoMoneda() + " a " + monedaNueva  +" ? (Si/No)");
+							String cambioMoneda = leer.next().toUpperCase();
 							
-							System.out.println("¿Quiere modificar si cuenta a USD? (Si/No)");
-							String cambioMoneda = leer.next();
+							// Verificar si el usuario quiere hacer el cambio
 							if (cambioMoneda.equalsIgnoreCase("SI")) {
 								
+								// Realizar conversión
 								ConversorMoneda conversor = new ConversorMonedaImpl();
-								double nuevoSaldo = conversor.convertir(cuenta.getSaldoActual(), Moneda.CLP, Moneda.USD);
-								System.out.println(nuevoSaldo);
+								double nuevoSaldo = conversor.convertir(cuenta.getSaldoActual(), cuenta.getTipoMoneda(), moneda);	
 								((AlkemyCuenta) cuenta).setSaldoActual(nuevoSaldo);// casteamos a AlkemyCuenta para usar el metodo setSaldoActual
-								((AlkemyCuenta) cuenta).setTipoMoneda(Moneda.USD);// casteamos a AlkemyCuenta para usar el metodo setSaldoActual
-								
+								((AlkemyCuenta) cuenta).setTipoMoneda(moneda);// casteamos a AlkemyCuenta para usar el metodo setTipoMoneda
+								System.out.println("\nSu nuevo saldo es: $" + MoneyUtils.formatear(cuenta.getSaldoActual(),cuenta.getTipoMoneda()) + " y su moneda es: " + cuenta.getTipoMoneda());
 								leer.nextLine(); //Limpiar buffer de lectura
 								menu.esperarEnter(leer);
 								
+								// Agregar movimiento de cambio de moneda
+								cuenta.cambiarMonedaMovimiento(moneda);
+								break;
 							}
-						} else {
-							System.out.println("¿Quiere modificar si cuenta a CLP?");
-							String cambioMoneda = leer.next();
-							if (cambioMoneda.equalsIgnoreCase("SI")) {
-								
-								ConversorMoneda conversor = new ConversorMonedaImpl();
-								double nuevoSaldo = conversor.convertir(cuenta.getSaldoActual(), Moneda.USD, Moneda.CLP);
-								System.out.println(nuevoSaldo);
-								((AlkemyCuenta) cuenta).setSaldoActual(nuevoSaldo);// casteamos a AlkemyCuenta para usar el metodo setSaldoActual
-								((AlkemyCuenta) cuenta).setTipoMoneda(Moneda.CLP); // casteamos a AlkemyCuenta para usar el metodo setTipoMoneda
-								
-								leer.nextLine(); //Limpiar buffer de lectura
-								menu.esperarEnter(leer);
-							}
-						}						
-						break;
+
+						} catch (IllegalArgumentException e) {
+						    System.out.println("\nMoneda a convertir no es soportada por el sistema.");
+						    break;
+						}
+					
 					} else {
 						System.out.print("\n No existe cuenta para hacer cambio de moneda.");
 						leer.nextLine(); //Limpiar buffer de lectura
@@ -277,6 +393,7 @@ public class PrincipalAlkemyWallet {
 					}
 				}
 				
+				// Ver Movimientos
 				case 6:{
 					if (cuenta != null) {
 						System.out.print("\nA continuación se listan los movimiento de su cuenta N° " + cuenta.getNumeroCuenta());
@@ -294,6 +411,13 @@ public class PrincipalAlkemyWallet {
 						
 					}					
 					
+				}
+				// Opción no válida
+				default:{
+					System.out.println("\nOpción no válida. Por favor seleccione una opción del menú.");
+					leer.nextLine(); //Limpiar buffer de lectura
+					menu.esperarEnter(leer);
+					break;
 				}
 			
 			}			

@@ -21,7 +21,7 @@ import cl.alkemy.utilitarios.servicios.ConversorMonedaImpl;
  */
 
 
-class NumeroCuentaRandomTest {
+public class NumeroCuentaRandomTest {
 
 	private int max;
 	private int min;

@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
  * @since 2026-01
  */
 
-class ConversorMonedaImplTest {
+public class ConversorMonedaImplTest {
 
 		private ConversorMoneda conversor;
 	 
@@ -95,6 +95,53 @@ class ConversorMonedaImplTest {
 
 		assertEquals(0, resultado, 0.0001);
 	}
+    
+   /**
+    *  Test: Concersión válida de CLP a EURO
+    */
+    @Test
+    void convertirCLPEURO() {
+    	double montoCLP=1;
+    	double resultado = conversor.convertir(montoCLP, Moneda.CLP, Moneda.EURO);
+    	
+    	assertEquals(0.001,resultado);
+    }
+    
+    /**
+     *  Test: Concersión válida de USD a EURO
+     */
+     @Test
+    void convertirUSDEURO() {
+    	double montoUSD=1;
+    	double resultado = conversor.convertir(montoUSD, Moneda.USD, Moneda.EURO);
+    	
+    	assertEquals(0.909,resultado);
+    }
+    
+     
+     /**
+      *  Test: Concersión válida de EURO a CLP
+      */
+      @Test
+      void convertirEUROCLP() {
+      	double montoEURO=1;
+      	double resultado = conversor.convertir(montoEURO, Moneda.EURO, Moneda.CLP);
+      	
+      	assertEquals(1000,resultado);
+      }
+      
+      /**
+       *  Test: Concersión válida de EURO a USD
+       */
+       @Test
+      void convertirEUROUSD() {
+      	double montoEURO=1;
+      	double resultado = conversor.convertir(montoEURO, Moneda.EURO, Moneda.USD);
+      	
+      	assertEquals(0.909,resultado);
+      }
+    
+    
     
     /**
      * Test: Conversión no soportada
