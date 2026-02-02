@@ -18,6 +18,14 @@ package cl.alkemy.utilitarios.servicios.validaciones;
 
 public class ValidadorNumeroImpl implements ValidadorDatos {
 
+	
+	/**
+	 * Constructor vacio
+	 * 
+	 */
+	public  ValidadorNumeroImpl () {}
+	
+	
 	/**
 	 * Valida si el dato proporcionado es un número válido (entero o decimal).
 	 * 

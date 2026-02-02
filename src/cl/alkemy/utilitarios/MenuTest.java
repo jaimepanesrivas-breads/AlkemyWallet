@@ -18,8 +18,8 @@ import cl.alkemy.business.MovimientosCuentaTest;
 /**
  * Tests unitarios para la clase {@link MenuTest}.
  *
- * Se validan los distintos escenarios de depósito y giro,
- * así como la correcta inicialización y manejo de movimientos.
+ * Se validan constructores, getters, setters y métodos de la clase Menu
+ * y que estos operen correctamente
  *
  * @author Jaime Francisco Panes Rivas
  * @version 1.0
@@ -27,24 +27,36 @@ import cl.alkemy.business.MovimientosCuentaTest;
  */
 
 public class MenuTest {
+	
+	
+	/** Stream original de salida estándar para restaurar después de cada test */
+	private final PrintStream originalOut = System.out;
+	 	
+	 	/** Buffer para capturar la salida por consola durante los tests */
+	 	private ByteArrayOutputStream outputStream;
 
-	 private final PrintStream originalOut = System.out;
-	    private ByteArrayOutputStream outputStream;
-
+	 	
+	 	/**
+	 	 * Inicializa el stream de salida para capturar System.out
+	 	 * antes de cada prueba.
+	 	 */
 	    @BeforeEach
 	    void setUp() {
 	        outputStream = new ByteArrayOutputStream();
 	        System.setOut(new PrintStream(outputStream));
 	    }
 
+	    /**
+	     * Restaura la salida estándar original después de cada prueba.
+	     */
 	    @AfterEach
 	    void tearDown() {
 	        System.setOut(originalOut);
 	    }
 
-	    // =========================
+	    
 	    // Constructores
-	    // =========================
+	    
 
 	    @Test
 	    @DisplayName("Constructor vacío debe inicializar opcion en 0")
@@ -60,9 +72,9 @@ public class MenuTest {
 	        assertEquals(5, menu.getOpcion());
 	    }
 
-	    // =========================
+	   
 	    // Getters / Setters
-	    // =========================
+	    
 
 	    @Test
 	    @DisplayName("Setter y Getter deben funcionar correctamente")
@@ -73,9 +85,7 @@ public class MenuTest {
 	        assertEquals(3, menu.getOpcion());
 	    }
 
-	    // =========================
 	    // mostrarMenu()
-	    // =========================
 
 	    @Test
 	    @DisplayName("mostrarMenu debe imprimir opciones cuando opcion != -1")
@@ -95,9 +105,7 @@ public class MenuTest {
 	        );
 	    }
 
-	    // =========================
 	    // limpiarConsola()
-	    // =========================
 
 	    @Test
 	    @DisplayName("limpiarConsola debe imprimir múltiples líneas")
@@ -114,9 +122,7 @@ public class MenuTest {
 	        assertTrue(lineas >= 40);
 	    }
 
-	    // =========================
 	    // esperarEnter()
-	    // =========================
 
 	    @Test
 	    @DisplayName("esperarEnter debe continuar al presionar ENTER")

@@ -10,8 +10,7 @@ import cl.alkemy.utilitarios.servicios.ConversorMonedaImpl;
 /**
  * Tests unitarios para la clase {@link ValidadorStringImplTest}.
  *
- * Se validan los distintos escenarios de conversión
- * y el manejo de errores.
+ * Se validan los campos string tengan valor al ser ingresados
  *
  * @author Jaime Francisco Panes Rivas
  * @version 1.0

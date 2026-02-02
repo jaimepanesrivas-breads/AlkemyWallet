@@ -28,6 +28,7 @@ public class AlkemyCuentaTest {
 
 	// Atributo de prueba
 	@SuppressWarnings("unused")
+	// objeto cuenta
 	private Cuenta cuenta;
 	
 	// Configuración previa a cada test

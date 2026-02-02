@@ -53,6 +53,21 @@ import cl.alkemy.utilitarios.servicios.validaciones.*;
 
 public class PrincipalAlkemyWallet {
 
+	
+	  /**
+     * Constructor por defecto.
+     */
+    public PrincipalAlkemyWallet() {
+    }
+	
+	/**
+	 * Punto de entrada principal del sistema Alkemy Wallet.
+	 * 
+	 * Inicializa el menú por consola y gestiona
+	 * la interacción del usuario con la cuenta bancaria.
+	 *
+	 * @param args argumentos de línea de comandos (no utilizados)
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

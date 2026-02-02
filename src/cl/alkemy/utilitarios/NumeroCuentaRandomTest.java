@@ -12,8 +12,7 @@ import cl.alkemy.utilitarios.servicios.ConversorMonedaImpl;
 /**
  * Tests unitarios para la clase {@link NumeroCuentaRandom}.
  *
- * Se validan los distintos escenarios de conversión
- * y el manejo de errores.
+ * Se valida la generacion de numero de cuenta de manera random
  *
  * @author Jaime Francisco Panes Rivas
  * @version 1.0

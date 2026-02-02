@@ -18,7 +18,14 @@ package cl.alkemy.utilitarios.servicios.validaciones;
  */
 public enum TiposDeValidacion {
 	
-	 STRING,
+	/**
+	 * Para Campos de texto
+	 */
+	STRING,
+	 
+	 /**
+	  * Para campos numéricos
+	  */
 	 NUMERICO
 
 }

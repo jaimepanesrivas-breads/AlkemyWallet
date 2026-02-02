@@ -15,8 +15,17 @@ package cl.alkemy.utilitarios.servicios.validaciones;
  * 
  */
 
+
+
 public class ValidadorStringImpl implements ValidadorDatos {
 
+	/**
+	 * Constructor vacio
+	 * 
+	 */
+	public  ValidadorStringImpl () {}
+	
+	
 	/**
 	 * Valida si el dato de tipo String no es nulo ni está vacío.
 	 * 

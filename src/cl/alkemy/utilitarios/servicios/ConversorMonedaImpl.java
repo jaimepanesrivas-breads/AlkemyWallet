@@ -22,6 +22,12 @@ import cl.alkemy.utilitarios.MoneyUtils;
 
 public class ConversorMonedaImpl implements ConversorMoneda {
 	
+	/**
+	 * Constructor por defecto de ConversorMonedaImpl.
+	 * Inicializa el conversor de monedas.
+	 */
+	public ConversorMonedaImpl() {
+	}
 	
 	/**
      * Tasa fija de conversión entre CLP y USD.

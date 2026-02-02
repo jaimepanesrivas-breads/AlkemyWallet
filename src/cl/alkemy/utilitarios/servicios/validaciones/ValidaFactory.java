@@ -19,6 +19,9 @@ package cl.alkemy.utilitarios.servicios.validaciones;
 
 public class ValidaFactory {
 	
+	/**
+	 * Constructor vacio
+	 */
 	public ValidaFactory() {}
 
 	    

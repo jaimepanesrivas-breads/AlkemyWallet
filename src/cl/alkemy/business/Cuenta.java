@@ -36,14 +36,14 @@ public interface Cuenta {
    
 	/**
 	 * Deposita un monto en la cuenta.
-	 * @param monto
+	 * @param monto es el valor del monto a depositar
 	 */
 	void depositar(double monto);
 	
 	
 	/**
 	 * Gira un monto desde la cuenta.
-	 * @param monto
+	 * @param monto valor del monto a girar
 	 */
 	void giro(double monto);
 	

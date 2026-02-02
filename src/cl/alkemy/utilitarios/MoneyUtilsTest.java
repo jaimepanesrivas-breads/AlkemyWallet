@@ -13,8 +13,8 @@ import cl.alkemy.utilitarios.servicios.Moneda;
 /**
  * Tests unitarios para la clase {@link MoneyUtilsTest}.
  *
- * Se validan los distintos escenarios de conversión
- * y el manejo de errores.
+ * Se validan los distintos escenarios formate para visualizacion y normalizacnio
+ * para almacenar el valor de los campos SaldoActual de la cuenta
  *
  * @author Jaime Francisco Panes Rivas
  * @version 1.0
@@ -25,9 +25,7 @@ public class MoneyUtilsTest {
 
 	  private static final double DELTA = 0.000001;
 
-	    // =========================
 	    // redondear()
-	    // =========================
 
 	    @Test
 	    @DisplayName("Debe redondear HALF_UP a 2 decimales (USD)")
@@ -47,9 +45,7 @@ public class MoneyUtilsTest {
 	        assertEquals(new BigDecimal("2000"), resultado);
 	    }
 
-	    // =========================
 	    // normalizar()
-	    // =========================
 
 	    @Test
 	    @DisplayName("normalizar debe devolver double redondeado")
@@ -69,9 +65,7 @@ public class MoneyUtilsTest {
 	        assertEquals(1235, resultado, DELTA);
 	    }
 
-	    // =========================
 	    // formatear()
-	    // =========================
 
 	    @Test
 	    @DisplayName("Debe formatear con miles y 2 decimales (USD)")
@@ -100,9 +94,7 @@ public class MoneyUtilsTest {
 	        assertFalse(resultado.contains(".00"));
 	    }
 
-	    // =========================
 	    // casos borde
-	    // =========================
 
 	    @Test
 	    @DisplayName("Debe manejar monto 0 correctamente")
@@ -113,7 +105,7 @@ public class MoneyUtilsTest {
 	    }
 
 	    @Test
-	    @DisplayName("Debe redondear HALF_UP correctamente en límite 5")
+	    @DisplayName("Debe redondear HALF_UP correctamente en límite 3")
 	    void testHalfUpLimite() {
 
 	        double resultado = MoneyUtils.normalizar(10.1257, Moneda.USD);

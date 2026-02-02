@@ -11,8 +11,8 @@ import cl.alkemy.utilitarios.servicios.ConversorMonedaImpl;
 /**
  * Tests unitarios para la clase {@link ValidadorNumeroImplTest}.
  *
- * Se validan los distintos escenarios de conversión
- * y el manejo de errores.
+ * Se validan si el dato ingresado es numerico, numerico positivo, 
+ * numero con decimal con punto para CLP o decimal con , para EURO y USD.
  *
  * @author Jaime Francisco Panes Rivas
  * @version 1.0

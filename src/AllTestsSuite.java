@@ -27,6 +27,7 @@ import cl.alkemy.business.AlkemyCuentaTest;
 	@Suite
 	@SelectClasses({
 	   
+	// Clases a ejecutar en el Suite
 		MovimientosCuentaTest.class,
 		AlkemyCuentaTest.class,
 		MoneyUtilsTest.class,

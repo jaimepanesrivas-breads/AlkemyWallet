@@ -23,14 +23,18 @@ import cl.alkemy.utilitarios.servicios.Moneda;
 
 public class MoneyUtils {
 	
+	
+	/** 
+	 * Constructor vacío
+	 */
 	private MoneyUtils() {}
 
     /**
 	 * Redondea un monto al número de decimales
 	 * 
-	 * @param monto
-	 * @param moneda
-	 * @return
+	 * @param monto original
+	 * @param moneda tipo de moneda (CLP, USD, EURO
+	 * @return monto redondeado
 	 */
     public static BigDecimal redondear(double monto, Moneda moneda) {
 
@@ -40,10 +44,11 @@ public class MoneyUtils {
     }
 
     /**
+     * Formatea el monto al numero de decimal para visualización
      * 
-     * @param monto
-     * @param moneda
-     * @return
+     * @param monto original a ser formateado
+     * @param moneda tipo de moneda para identificar el formato
+     * @return monto formateado
      */
     public static String formatear(double monto, Moneda moneda) {
 
@@ -67,9 +72,9 @@ public class MoneyUtils {
 
     /**
 	 * Normaliza un monto al número de decimales de la moneda especificada.
-	 * @param monto
-	 * @param moneda
-	 * @return
+	 * @param monto a normalizar
+	 * @param moneda tipo de moneda indica la normalizacion a usar
+	 * @return monto normalizado
 	 */
     public static double normalizar(double monto, Moneda moneda) {
         return BigDecimal

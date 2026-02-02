@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests unitarios para la clase {@link ValidaFactoryTest}.
  *
- * Se validan los distintos escenarios de conversión
- * y el manejo de errores.
+ * Se validan si el factory realiza la validacion de acuerdo al tipo,
+ * si es numerica o string de acuerdo a los implementadores.
  *
  * @author Jaime Francisco Panes Rivas
  * @version 1.0
@@ -52,10 +52,10 @@ public class ValidaFactoryTest {
     }
     
     @Test
+    @DisplayName("Valida cada tipo de dato")
     void validadorNumericoDebeFuncionar() {
 
-        ValidadorDatos v =
-                ValidaFactory.obtenerValidador(TiposDeValidacion.NUMERICO);
+        ValidadorDatos v = ValidaFactory.obtenerValidador(TiposDeValidacion.NUMERICO);
 
         assertTrue(v.validar("123"));
         assertTrue(v.validar("12,5"));

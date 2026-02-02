@@ -11,8 +11,10 @@ import cl.alkemy.utilitarios.MoneyUtils;
 /**
  * Tests unitarios para la clase {@link MonedaTest}.
  *
- * Se validan los distintos escenarios de conversión
- * y el manejo de errores.
+ * Se validan si lo elementos de formato de moneda para CLP, USD, y EURO
+ * operan correctamente.
+ * 
+ * Adicionalmente si solo existen esas tres monedas.
  *
  * @author Jaime Francisco Panes Rivas
  * @version 1.0
@@ -60,6 +62,7 @@ public class MonedaTest {
 
 	    assertEquals(10.126, resultado, 0.000001);
 	}
+	
 	@Test
 	void testNormalizarCLP() {
 
@@ -68,9 +71,7 @@ public class MonedaTest {
 	    assertEquals(10, resultado, 0.000001);
 	}
 	
-	 // =========================
     // Existencia de constantes
-    // =========================
 
     @Test
     @DisplayName("Debe contener 3 monedas")
@@ -87,9 +88,7 @@ public class MonedaTest {
         assertNotNull(Moneda.valueOf("EURO"));
     }
 
-    // =========================
     // CLP
-    // =========================
 
     @Test
     @DisplayName("CLP debe tener 0 decimales y separadores correctos")
@@ -104,9 +103,7 @@ public class MonedaTest {
         );
     }
 
-    // =========================
     // USD
-    // =========================
 
     @Test
     @DisplayName("USD debe tener 3 decimales y separadores correctos")
@@ -121,9 +118,7 @@ public class MonedaTest {
         );
     }
 
-    // =========================
     // EURO
-    // =========================
 
     @Test
     @DisplayName("EURO debe tener 3 decimales y separadores correctos")
