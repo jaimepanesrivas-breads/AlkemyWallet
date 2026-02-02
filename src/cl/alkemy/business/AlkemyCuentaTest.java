@@ -7,6 +7,7 @@ import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 
 import cl.alkemy.utilitarios.servicios.Moneda;
 
@@ -41,6 +42,7 @@ public class AlkemyCuentaTest {
 	 * 
 	 */
 	@Test
+	@DisplayName("Prueba que objeto cuenta no sea vacio")
 	void test() {
 		
 		assertNotNull(cuenta);
@@ -50,6 +52,7 @@ public class AlkemyCuentaTest {
 	 * Test instancia de tipo Cuenta
 	 */
 	@Test
+	@DisplayName("genra instancia")
 	void testTipoCuenta() {
 		assertTrue(cuenta instanceof Cuenta);
 	}
@@ -58,6 +61,7 @@ public class AlkemyCuentaTest {
 	 * Test de inicialización movimientos
 	 */
 	@Test
+	@DisplayName("Obtener movimientos")
 	void testInicializacionMovimientos() {
 		assertNotNull(((AlkemyCuenta)cuenta).getMovimientos());
 	}

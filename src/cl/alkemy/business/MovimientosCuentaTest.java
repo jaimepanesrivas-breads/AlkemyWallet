@@ -10,6 +10,18 @@ import org.junit.jupiter.api.Test;
 
 import cl.alkemy.utilitarios.servicios.Moneda;
 
+
+/**
+ * Tests unitarios para la clase {@link MovimientosCuentaTest}.
+ *
+ * Se validan los distintos escenarios de depósito y giro,
+ * así como la correcta inicialización y manejo de movimientos.
+ *
+ * @author Jaime Francisco Panes Rivas
+ * @version 1.0
+ * @since 2026-01
+ */
+
 public class MovimientosCuentaTest {
 
 	private static final double DELTA = 0.0001;

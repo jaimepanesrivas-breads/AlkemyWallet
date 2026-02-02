@@ -9,6 +9,18 @@ import org.junit.jupiter.api.Test;
 
 import cl.alkemy.utilitarios.servicios.Moneda;
 
+
+/**
+ * Tests unitarios para la clase {@link MoneyUtilsTest}.
+ *
+ * Se validan los distintos escenarios de conversión
+ * y el manejo de errores.
+ *
+ * @author Jaime Francisco Panes Rivas
+ * @version 1.0
+ * @since 2026-01
+ */
+
 public class MoneyUtilsTest {
 
 	  private static final double DELTA = 0.000001;

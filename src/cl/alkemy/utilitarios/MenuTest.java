@@ -12,6 +12,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import cl.alkemy.business.MovimientosCuentaTest;
+
+
+/**
+ * Tests unitarios para la clase {@link MenuTest}.
+ *
+ * Se validan los distintos escenarios de depósito y giro,
+ * así como la correcta inicialización y manejo de movimientos.
+ *
+ * @author Jaime Francisco Panes Rivas
+ * @version 1.0
+ * @since 2026-01
+ */
+
 public class MenuTest {
 
 	 private final PrintStream originalOut = System.out;

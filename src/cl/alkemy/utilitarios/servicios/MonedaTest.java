@@ -7,6 +7,20 @@ import org.junit.jupiter.api.Test;
 
 import cl.alkemy.utilitarios.MoneyUtils;
 
+
+/**
+ * Tests unitarios para la clase {@link MonedaTest}.
+ *
+ * Se validan los distintos escenarios de conversión
+ * y el manejo de errores.
+ *
+ * @author Jaime Francisco Panes Rivas
+ * @version 1.0
+ * @since 2026-01
+ */
+
+
+
 public class MonedaTest {
 
 	@Test

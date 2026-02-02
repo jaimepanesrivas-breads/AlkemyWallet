@@ -5,6 +5,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import cl.alkemy.utilitarios.servicios.ConversorMonedaImpl;
+
+/**
+ * Tests unitarios para la clase {@link ValidadorStringImplTest}.
+ *
+ * Se validan los distintos escenarios de conversión
+ * y el manejo de errores.
+ *
+ * @author Jaime Francisco Panes Rivas
+ * @version 1.0
+ * @since 2026-01
+ */
+
+
+
 public class ValidadorStringImplTest {
 
 	private final ValidadorDatos validador = new ValidadorStringImpl();

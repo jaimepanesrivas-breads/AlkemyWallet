@@ -40,15 +40,22 @@ import cl.alkemy.business.AlkemyCuentaTest;
 	})
 	
 	/**
-	 * Suite de pruebas unitarias para todo el proyecto AlkemyWallet.
+	 * Calse AllSuiteTest
 	 * 
+	 * <p>
+	 * Suite de pruebas unitarias para todo el proyecto AlkemyWallet.
+	 * </p>
+	 * <p>
 	 * Esta clase agrupa todas las pruebas unitarias definidas en
 	 * los distintos paquetes del proyecto, permitiendo su ejecución
 	 * conjunta.
+	 * </p>
 	 * 
 	 * @author Jaime Francisco Panes Rivas
 	 * @version 1.0
 	 * @since 2026-01
+	 * 
+	 * 
 	 */	
 	public class AllTestsSuite {
 	}

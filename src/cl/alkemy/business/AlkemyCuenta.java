@@ -98,7 +98,6 @@ public class AlkemyCuenta implements Cuenta {
 	 * @param nombreTitular Nombre del titular de la cuenta.
 	 * @param saldoActual   Saldo actual disponible en la cuenta.
 	 * @param tipoMoneda    Tipo de moneda utilizada en la cuenta.
-	 * @param movimientos   Lista de movimientos realizados en la cuenta.
 	 * 
 	 *
 	 */

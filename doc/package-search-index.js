@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"cl.alkemy.business"},{"l":"cl.alkemy.utilitarios"},{"l":"cl.alkemy.utilitarios.servicios"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"cl.alkemy.business"}];updateSearchResults();
